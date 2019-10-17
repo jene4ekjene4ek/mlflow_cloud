@@ -29,7 +29,7 @@ def train(data, max_depth, max_bins):
 #     spark = SparkSession.builder.appName("DecisionTreeClassificationExample").getOrCreate()
 
     # Load the data stored in LIBSVM format as a DataFrame.
-    data = spark.read.format("libsvm").load(os.environ['DSX_PROJECT_DIR']+data_path)
+#     data = spark.read.format("libsvm").load(os.environ['DSX_PROJECT_DIR']+data_path)
 
     # Index labels, adding metadata to the label column.
     # Fit on whole dataset to include all labels in index.
@@ -96,7 +96,8 @@ if __name__ == "__main__":
     print("experiment_name:",args.experiment_name)
     mlflow.set_experiment(args.experiment_name)
     print("experiment_id:",client.get_experiment_by_name(args.experiment_name).experiment_id)
-
+    data = spark.read.format("libsvm").load(os.environ['DSX_PROJECT_DIR']+args.data_path)
+    data.show(5)
     
     with mlflow.start_run() as run:
         print("MLflow:")
