@@ -29,7 +29,7 @@ def train(data, max_depth, max_bins):
 #     spark = SparkSession.builder.appName("DecisionTreeClassificationExample").getOrCreate()
 
     # Load the data stored in LIBSVM format as a DataFrame.
-#     data = spark.read.format("libsvm").load(data_path)
+    data = spark.read.format("libsvm").load(data_path)
 
     # Index labels, adding metadata to the label column.
     # Fit on whole dataset to include all labels in index.
