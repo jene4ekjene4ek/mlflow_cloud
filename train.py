@@ -95,13 +95,14 @@ if __name__ == "__main__":
 
     client = mlflow.tracking.MlflowClient()
     print("experiment_name:",args.experiment_name)
-    mlflow.set_experiment(args.experiment_name)
+#     mlflow.set_experiment(args.experiment_name)
     print("experiment_id:",client.get_experiment_by_name(args.experiment_name).experiment_id)
     data = spark.read.format("libsvm").load(os.environ['DSX_PROJECT_DIR']+args.data_path)
     data.show(5)
-    
+    print('Before mlflow.start_run')
     with mlflow.start_run() as run:
-        print("MLflow:")
-        print("  run_id:",run.info.run_uuid)
-        print("  experiment_id:",run.info.experiment_id)
+        print('After mlflow.start_run')
+#         print("MLflow:")
+#         print("  run_id:",run.info.run_uuid)
+#         print("  experiment_id:",run.info.experiment_id)
         train(data, args.max_depth,args.max_bins)
